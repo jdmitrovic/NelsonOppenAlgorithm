@@ -5,17 +5,15 @@
 #include <iterator>
 #include <unordered_set>
 
-using namespace std;
-
 int main(int argc, char *argv[])
 {
-	Term x = make_shared<VariableTerm>("x");
-	Term y = make_shared<VariableTerm>("y");
+    Term x = std::make_shared<VariableTerm>("x");
+    Term y = std::make_shared<VariableTerm>("y");
 
-	Term f1 = make_shared<FunctionTerm>("f", vector<Term> {x, y});
-	Term f2 = make_shared<FunctionTerm>("f", vector<Term> {y, x});
+    Term f1 = std::make_shared<FunctionTerm>("f", std::vector<Term> {x, y});
+    Term f2 = std::make_shared<FunctionTerm>("f", std::vector<Term> {y, x});
 
-	Term f3 = make_shared<FunctionTerm>("f", vector<Term> {f1, f2});
+    Term f3 = std::make_shared<FunctionTerm>("f", std::vector<Term> {f1, f2});
 
 
 	Eq e1 = Eq(f1, Equality, x);
@@ -23,12 +21,34 @@ int main(int argc, char *argv[])
 
 	Eq e3 = Eq(f3, Equality, x);
 
-	EqClassMap cm = nelsonOppen(vector<Eq> {e1, e2, e3});
+    EqClassMap cm = nelsonOppen(std::vector<Eq> {e1, e2, e3});
+    std::unordered_set<Term> classes;
 
+    for(auto &i : cm)
+        classes.insert(i.second);
 
-	for(auto const &c : cm){
-        	std::cout << '{' << c.first << ',' << ' ' << c.second << '}' << std::endl;
-    	}
+    bool first_term;
 
-	return 0;
+    for(auto &i : classes){
+        first_term = true;
+        std::cout << '{';
+
+        for(auto &j : cm){
+            if(j.second == i){
+                if(!first_term)
+                    std::cout << ", ";
+
+                std::cout << j.first;
+                first_term = false;
+            }
+        }
+
+        std::cout << '}' << std::endl;
+    }
+
+//    for(auto const &c : cm){
+//            std::cout << '{' << c.first << ',' << ' ' << c.second << '}' << std::endl;
+//    }
+
+    return 0;
 }

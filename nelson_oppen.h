@@ -10,7 +10,7 @@
 
 using EqClassMap = std::unordered_map<Term, Term>;
 
-EqClassMap nelsonOppen(std::vector<Eq> equalities);
+EqClassMap nelsonOppen(std::vector<Eq> equalities, std::unordered_set<Term> T = std::unordered_set<Term>());
 void merge(EqClassMap &E, std::unordered_set<Term> &T, const Term &l, const Term &r);
 bool congruent(EqClassMap &E, const Term &t1, const Term &t2);
 

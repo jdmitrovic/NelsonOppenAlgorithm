@@ -21,7 +21,8 @@ int main(int argc, char *argv[])
 
 	Eq e3 = Eq(f3, Equality, x);
 
-    EqClassMap cm = nelsonOppen(std::vector<Eq> {e1, e2, e3});
+    auto tmp = std::vector<Eq> {e1, e2, e3};
+    EqClassMap cm = nelsonOppen(tmp);
     std::unordered_set<Term> classes;
 
     for(auto &i : cm)

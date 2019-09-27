@@ -1,9 +1,9 @@
 #include "nelson_oppen.h"
 
-EqClassMap nelsonOppen(std::vector<Eq> equalities)
+EqClassMap nelsonOppen(std::vector<Eq> equalities, std::unordered_set<Term> T)
 {
     EqClassMap E;
-    std::unordered_set<Term> T;
+//    std::unordered_set<Term> T;
     for(const Eq &e : equalities){
         E.insert(std::make_pair(e.lhs(), e.lhs()));
         E.insert(std::make_pair(e.rhs(), e.rhs()));

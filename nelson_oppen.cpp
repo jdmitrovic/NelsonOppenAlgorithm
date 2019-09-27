@@ -5,12 +5,12 @@ EqClassMap nelsonOppen(std::vector<Eq> equalities, std::unordered_set<Term> T)
     EqClassMap E;
 //    std::unordered_set<Term> T;
     for(const Eq &e : equalities){
-        E.insert(std::make_pair(e.lhs(), e.lhs()));
-        E.insert(std::make_pair(e.rhs(), e.rhs()));
-
         T.insert(e.lhs());
         T.insert(e.rhs());
     }
+
+    for(const Term &t : T)
+        E.insert(std::make_pair(t, t));
 
     for(const Eq &e : equalities){
         if(e.type() == Inequality)
